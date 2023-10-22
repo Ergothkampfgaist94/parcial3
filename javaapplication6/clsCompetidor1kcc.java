@@ -2,15 +2,15 @@ package javaapplication6;
 
 public class clsCompetidor1kcc {
 
-    String cedula;
-    String nombre;
-    String apellido;
-    int anionacimiento;
-    String rh;
-    String idmoto;
-    int tiempo;
-    int cilindraje;
-    String tipo;
+    private String cedula;
+    private String nombre;
+    private String apellido;
+    private int anionacimiento;
+    private String rh;
+    private String idmoto;
+    private int tiempo;
+    private int cilindraje;
+    private String tipo;
 
     public clsCompetidor1kcc() {
         this.cedula = null;
