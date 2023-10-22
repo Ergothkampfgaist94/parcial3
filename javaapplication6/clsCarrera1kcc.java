@@ -104,12 +104,12 @@ public class clsCarrera1kcc {
                     default -> {
                     }
                 }
-                auxPila1kcc.apilar(pila1kcc.getElemento());
-                pila1kcc.desapilar();
             }
-            cadena = "NO";
             auxPila1kcc.apilar(pila1kcc.getElemento());
             pila1kcc.desapilar();
+        }
+        if ("".equals(cadena)) {
+            cadena = "Dato no encontrado";
         }
         reapilar(auxPila1kcc);
         return cadena;
@@ -117,14 +117,12 @@ public class clsCarrera1kcc {
 
     public String borrarCompetidor1kcc(String cedula) {
         cadena = "";
-        boolean found = false;
+
         while (!pila1kcc.estaVacia()) {
             clsCompetidor1kcc objCompetidor;
             objCompetidor = pila1kcc.getElemento();
-
             if (objCompetidor.getCedula().equalsIgnoreCase(cedula)) {
                 cantCompetidores1k--;
-                found = true;
                 pila1kcc.desapilar();
                 cadena = "Competidor eliminado de la competencia";
 
@@ -133,7 +131,9 @@ public class clsCarrera1kcc {
                 pila1kcc.desapilar();
             }
         }
-        cadena = "Registron no encontrado";
+        if ("".equals(cadena)) {
+            cadena = "Dato no encontrado";
+        }
         reapilar(pila1kcc);
         return cadena;
     }
@@ -217,15 +217,4 @@ public class clsCarrera1kcc {
                 options[7]);
         return String.valueOf(rh);
     }
-
-    private void modEverydata(clsCompetidor1kcc objCompetidor) {
-        objCompetidor.setNombre(JOptionPane.showInputDialog("Digite el nuevo nombre"));
-        objCompetidor.setApellido(JOptionPane.showInputDialog("Digite el nuevo apellido"));
-        anio();
-        ChooseRH();
-        objCompetidor.setIdmoto(JOptionPane.showInputDialog("Digite la nueva matrícula"));
-        objCompetidor.setTipo(JOptionPane.showInputDialog("Digite el nuevo tipo"));
-
-    }
-
 }
