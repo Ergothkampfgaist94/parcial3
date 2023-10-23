@@ -34,6 +34,10 @@ public class JavaApplication6 {
                     JOptionPane.showMessageDialog(null, CAR.findandShow(cedulac));
                     break;
                 case 6:
+                    int cant = CAR.cant1000();
+                    JOptionPane.showMessageDialog(null, "Hay "+ String.valueOf(cant)+ " Concursantes en la categoría de 1000cc");
+                    break;
+                case 7:
                     JOptionPane.showMessageDialog(null, "saliendo");
                     System.exit(0);
                     break;

@@ -21,20 +21,32 @@ public class clsCarrera1kcc {
         while (JOptionPane.showConfirmDialog(null,
                 "¿Desea agregar un Competidor a la carrera?")
                 == JOptionPane.YES_NO_OPTION) {
-
+            String cedula = JOptionPane.showInputDialog("Introducir cédula");
+            String cedulaR = ValidateID(cedula);
+            String name = JOptionPane.showInputDialog("Introducir Nombre");
+            String nameR = validatechar(name);
+            String lastName = JOptionPane.showInputDialog("Introducir Nombre");
+            String lastNameR = validatechar(lastName);
+            String idMoto = JOptionPane.showInputDialog("Introducir matrícula de la moto");
+            String idMotoR = validatechar(idMoto);
+            String tipo = JOptionPane.showInputDialog("Introducir tipo");
+            String tipoR = validatechar(tipo);
+            int anio = anio();
             pila1kcc.apilar(new clsCompetidor1kcc(
-                    ValidateID(),
-                    validateName(),
-                    validateLastName(),
-                    anio(),
+                    cedulaR,
+                    nameR,
+                    lastNameR,
+                    anio,
                     ChooseRH(),
-                    JOptionPane.showInputDialog("Introducir matrícula de la moto"),
+                    idMotoR,
                     establishtime(),
-                    JOptionPane.showInputDialog("Introducir tipo")
+                    tipoR
             ));
             cantCompetidores1k++;
         }
-        cadena = "Se agregaron " + cantCompetidores1k + " competidores a la carrera de 1000cc.";
+        cadena = "Se han agregado "
+                + cantCompetidores1k
+                + " competidores a la carrera de 1000cc.";
         return cadena;
     }
 
@@ -172,40 +184,53 @@ public class clsCarrera1kcc {
         return cadena;
     }
 
-    private String ValidateID() {
-        String identificacion = JOptionPane.showInputDialog("Introducir cédula");
+    public String beginR100cc() {
+        cadena = "";
+        int arr[];
+        int i, j, temp;
+        boolean swapped;
+        for (i = 0; i < cantCompetidores1k - 1; i++) {
+            swapped = false;
+            for (j = 0; j < cantCompetidores1k - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+
+                    temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            if (swapped == false) {
+                break;
+            }
+
+            return cadena;
+        }
+
+    
+
+    
+
+    
+
+    private String ValidateID(String identificacion) {
         String charesp = "[0-9]+";
-        if (!identificacion.matches(charesp)) {
-            JOptionPane.showMessageDialog(null,
+        while (!identificacion.matches(charesp)) {
+            identificacion = JOptionPane.showInputDialog(null,
                     "Identificación con caracteres diferentes a números, intente nuevamente ");
-            ValidateID();
+
         }
         return identificacion;
-
     }
 
-    private String validateName() {
-        String name = JOptionPane.showInputDialog("Introducir Nombre").toUpperCase();
-        String charesp = "[A-Z]+";
-        if (!name.matches(charesp)) {            
-            JOptionPane.showMessageDialog(null,
-                    "Nombre con caracteres especiales, intente nuevamente ");
-            validateName();
+    private String validatechar(String name) {
+        String charesp = "[a-zA-Z]+";
+        while (!name.matches(charesp)) {
+            name = JOptionPane.showInputDialog(null,
+                    "Caracteres especiales, intente nuevamente ");
         }
         return name;
-
-    }
-
-    private String validateLastName() {
-        String lastName = JOptionPane.showInputDialog("Introducir Apellido").toUpperCase();
-        String charesp = "[A-Z]+";
-        if (!lastName.matches(charesp)) {
-            JOptionPane.showMessageDialog(null,
-                    "Apellido con caracteres especiales, intente nuevamente ");
-            validateLastName();
-        }
-        return lastName;
-
     }
 
     private int anio() {
@@ -264,5 +289,9 @@ public class clsCarrera1kcc {
                 options,
                 options[7]);
         return String.valueOf(rh);
+    }
+
+    public int cant1000() {
+        return cantCompetidores1k;
     }
 }
