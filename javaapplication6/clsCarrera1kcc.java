@@ -25,7 +25,7 @@ public class clsCarrera1kcc {
             String cedulaR = ValidateID(cedula);
             String name = JOptionPane.showInputDialog("Introducir Nombre");
             String nameR = validatechar(name);
-            String lastName = JOptionPane.showInputDialog("Introducir Nombre");
+            String lastName = JOptionPane.showInputDialog("Introducir Apellido");
             String lastNameR = validatechar(lastName);
             String idMoto = JOptionPane.showInputDialog("Introducir matrícula de la moto");
             String idMotoR = validatechar(idMoto);
@@ -185,34 +185,28 @@ public class clsCarrera1kcc {
     }
 
     public String beginR100cc() {
+        int menor = 0;
         cadena = "";
-        int arr[];
-        int i, j, temp;
-        boolean swapped;
-        for (i = 0; i < cantCompetidores1k - 1; i++) {
-            swapped = false;
-            for (j = 0; j < cantCompetidores1k - i - 1; j++) {
-                if (arr[j] > arr[j + 1]) {
-
-                    temp = arr[j];
-                    arr[j] = arr[j + 1];
-                    arr[j + 1] = temp;
-                    swapped = true;
-                }
+        while (!pila1kcc.estaVacia()) {
+            clsCompetidor1kcc objCompetidor;
+            objCompetidor = pila1kcc.getElemento();
+            menor = objCompetidor.getTiempo();
+            auxPila1kcc.apilar(pila1kcc.getElemento());
+            pila1kcc.desapilar();
+            int mayor = objCompetidor.getTiempo();
+            if (mayor < menor) {
+                menor = objCompetidor.getTiempo();
+                cadena = "El mejor tiempo fue: "
+                        + objCompetidor.getTiempo()
+                        + "del concursante "
+                        + objCompetidor.getNombre()
+                        + " "
+                        + objCompetidor.getApellido();
             }
-
-            if (swapped == false) {
-                break;
-            }
-
-            return cadena;
         }
-
-    
-
-    
-
-    
+        reapilar(auxPila1kcc);
+        return cadena;
+    }
 
     private String ValidateID(String identificacion) {
         String charesp = "[0-9]+";
@@ -291,7 +285,7 @@ public class clsCarrera1kcc {
         return String.valueOf(rh);
     }
 
-    public int cant1000() {
-        return cantCompetidores1k;
+    public String cant1000() {
+        return "Hay " + String.valueOf(cantCompetidores1k) + " Concursantes en la categoría de 1000cc";
     }
 }
