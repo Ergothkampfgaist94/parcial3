@@ -21,15 +21,15 @@ public class clsCarrera1kcc {
         while (JOptionPane.showConfirmDialog(null,
                 "¿Desea agregar un Competidor a la carrera?")
                 == JOptionPane.YES_NO_OPTION) {
-            int tiempo = establishtime();
+
             pila1kcc.apilar(new clsCompetidor1kcc(
-                    JOptionPane.showInputDialog("Introducir cédula"),
-                    JOptionPane.showInputDialog("Introducir nombre"),
-                    JOptionPane.showInputDialog("Introducir apellido"),
+                    ValidateID(),
+                    validateName(),
+                    validateLastName(),
                     anio(),
                     ChooseRH(),
                     JOptionPane.showInputDialog("Introducir matrícula de la moto"),
-                    tiempo,
+                    establishtime(),
                     JOptionPane.showInputDialog("Introducir tipo")
             ));
             cantCompetidores1k++;
@@ -104,9 +104,13 @@ public class clsCarrera1kcc {
                     default -> {
                     }
                 }
+                auxPila1kcc.apilar(pila1kcc.getElemento());
+                pila1kcc.desapilar();
+            } else {
+                auxPila1kcc.apilar(pila1kcc.getElemento());
+                pila1kcc.desapilar();
             }
-            auxPila1kcc.apilar(pila1kcc.getElemento());
-            pila1kcc.desapilar();
+
         }
         if ("".equals(cadena)) {
             cadena = "Dato no encontrado";
@@ -134,14 +138,73 @@ public class clsCarrera1kcc {
         if ("".equals(cadena)) {
             cadena = "Dato no encontrado";
         }
-        reapilar(pila1kcc);
+        reapilar(auxPila1kcc);
         return cadena;
     }
 
-    private void ValidateID(String identificación) {
-        if (true) {
-
+    public String findandShow(String cedula) {
+        cadena = "";
+        while (!pila1kcc.estaVacia()) {
+            clsCompetidor1kcc objCompetidor;
+            objCompetidor = pila1kcc.getElemento();
+            if (objCompetidor.getCedula().equalsIgnoreCase(cedula)) {
+                cadena += "Información del concursante\n"
+                        + "\nCédula: " + objCompetidor.getCedula()
+                        + "\n Nombre: " + objCompetidor.getNombre()
+                        + "\n Apellido: " + objCompetidor.getApellido()
+                        + "\n Edad: " + objCompetidor.getAnionacimiento() + " años"
+                        + "\n Tipo de sangre: " + objCompetidor.getRh()
+                        + "\n Matrícula de moto: " + objCompetidor.getIdmoto()
+                        + "\n Cilindraje: " + objCompetidor.getCilindraje() + " Centímetros Cúbicos"
+                        + "\n Tipo de moto: " + objCompetidor.getTipo()
+                        + "\n";
+                auxPila1kcc.apilar(pila1kcc.getElemento());
+                pila1kcc.desapilar();
+            } else {
+                auxPila1kcc.apilar(pila1kcc.getElemento());
+                pila1kcc.desapilar();
+            }
         }
+        if ("".equals(cadena)) {
+            cadena = "Dato no encontrado";
+        }
+        reapilar(auxPila1kcc);
+        return cadena;
+    }
+
+    private String ValidateID() {
+        String identificacion = JOptionPane.showInputDialog("Introducir cédula");
+        String charesp = "[0-9]+";
+        if (!identificacion.matches(charesp)) {
+            JOptionPane.showMessageDialog(null,
+                    "Identificación con caracteres diferentes a números, intente nuevamente ");
+            ValidateID();
+        }
+        return identificacion;
+
+    }
+
+    private String validateName() {
+        String name = JOptionPane.showInputDialog("Introducir Nombre").toUpperCase();
+        String charesp = "[A-Z]+";
+        if (!name.matches(charesp)) {            
+            JOptionPane.showMessageDialog(null,
+                    "Nombre con caracteres especiales, intente nuevamente ");
+            validateName();
+        }
+        return name;
+
+    }
+
+    private String validateLastName() {
+        String lastName = JOptionPane.showInputDialog("Introducir Apellido").toUpperCase();
+        String charesp = "[A-Z]+";
+        if (!lastName.matches(charesp)) {
+            JOptionPane.showMessageDialog(null,
+                    "Apellido con caracteres especiales, intente nuevamente ");
+            validateLastName();
+        }
+        return lastName;
 
     }
 
@@ -161,23 +224,8 @@ public class clsCarrera1kcc {
         while (!auxPila1kcc.estaVacia()) {
             pila1kcc.apilar(auxPila1kcc.getElemento());
             auxPila1kcc.desapilar();
-
         }
 
-    }
-
-    private int escogerPregunta() {
-        Object[] options = {"Modificar 1 dato",
-            "Modificar varios datos"};
-        int n = JOptionPane.showOptionDialog(null,
-                "Escoja el elemento que desea modificar del viaje",
-                "ESCOGER ELEMENTO A MODIFICAR",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                null);
-        return n;
     }
 
     private int preguntarDatomod() {
